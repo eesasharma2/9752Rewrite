@@ -54,4 +54,14 @@ public class ShooterSubsystem extends SubsystemBase {
   public void periodic() {
     // Called once per scheduler run
   }
+
+public void adjustShooter(double d) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'adjustShooter'");
+}
+
+public void adjustShooterVertical(double d) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'adjustShooterVertical'");
+}
 }

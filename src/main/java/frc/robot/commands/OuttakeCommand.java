@@ -4,11 +4,11 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class IntakeCommand extends CommandBase {
+public class OuttakeCommand extends CommandBase {
   private final IntakeSubsystem intakeSubsystem;
   private final TransferSubsystem transferSubsystem;
 
-  public IntakeCommand(IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem) {
+  public OuttakeCommand(IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem) {
     this.intakeSubsystem = intakeSubsystem;
     this.transferSubsystem = transferSubsystem;
     addRequirements(intakeSubsystem, transferSubsystem);
@@ -20,8 +20,8 @@ public class IntakeCommand extends CommandBase {
 
   @Override
   public void execute() {
-    intakeSubsystem.setIntake(1.0);
-    transferSubsystem.setTransfer(1.0);
+    intakeSubsystem.setIntake(-1.0);
+    transferSubsystem.setTransfer(-1.0);
   }
 
   @Override
