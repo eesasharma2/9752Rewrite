@@ -1,43 +1,38 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkBase.ControlType;
+import com.revrobotics.CANSparkFlex;
 import com.revrobotics.SparkPIDController;
+
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import com.revrobotics.CANSparkFlex;
-import com.revrobotics.CANSparkLowLevel;
-import com.revrobotics.RelativeEncoder;
-
-import java.util.function.BooleanSupplier;
-import edu.wpi.first.math.controller.BangBangController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj.Servo;
-
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkBase.ControlType;
-import com.revrobotics.SparkPIDController;
-
 public class ShooterSubsystem extends SubsystemBase {
-  private final CANSparkMax leftShooterMotor = new CANSparkMax(0, CANSparkMax.MotorType.kBrushless); // Left motor CAN
-                                                                                                     // ID
-  private final CANSparkMax rightShooterMotor = new CANSparkMax(1, CANSparkMax.MotorType.kBrushless); // Right motor CAN
-                                                                                                      // ID
+  private final CANSparkFlex leftShooterMotor = new CANSparkFlex(20, CANSparkFlex.MotorType.kBrushless); // Left motor CAN
+  private final CANSparkFlex rightShooterMotor = new CANSparkFlex(21, CANSparkFlex.MotorType.kBrushless); // Right motor CAN
 
   private final SparkPIDController leftPIDController = leftShooterMotor.getPIDController();
   private final SparkPIDController rightPIDController = rightShooterMotor.getPIDController();
 
   public ShooterSubsystem() {
-    configurePIDController(leftPIDController);
-    configurePIDController(rightPIDController);
-  }
+    rightShooterMotor.restoreFactoryDefaults();
+    leftShooterMotor.restoreFactoryDefaults();
 
-  private void configurePIDController(SparkPIDController pidController) {
-    pidController.setP(0.1); // Example P value
-    pidController.setI(0.0); // Example I value
-    pidController.setD(0.0); // Example D value
+    leftShooterMotor.setInverted(true);
+
+    leftPIDController.setFF(0.002);
+    leftPIDController.setP(0.002); // Example P value
+    leftPIDController.setI(0.0); // Example I value
+    leftPIDController.setD(0.001); // Example D value
+
+    rightPIDController.setFF(0.002);
+    rightPIDController.setP(0.002); // Example P value
+    rightPIDController.setI(0.0); // Example I value
+    rightPIDController.setD(0.001); // Example D value
     // Configure other PID settings as needed
+
+    rightShooterMotor.burnFlash();
+    leftShooterMotor.burnFlash();
   }
 
   public void setShooterSpeed(double targetRPM) {
@@ -50,18 +45,24 @@ public class ShooterSubsystem extends SubsystemBase {
     rightShooterMotor.set(0.0);
   }
 
+  public Command defaultCommand() {
+      return run( () -> {
+        stopShooter();
+     });
+  }
+
   @Override
   public void periodic() {
     // Called once per scheduler run
   }
 
-public void adjustShooter(double d) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'adjustShooter'");
-}
+// public void adjustShooter(double d) {
+//     // TODO Auto-generated method stub
+//     throw new UnsupportedOperationException("Unimplemented method 'adjustShooter'");
+// }
 
-public void adjustShooterVertical(double d) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'adjustShooterVertical'");
-}
+// public void adjustShooterVertical(double d) {
+//     // TODO Auto-generated method stub
+//     throw new UnsupportedOperationException("Unimplemented method 'adjustShooterVertical'");
+// }
 }

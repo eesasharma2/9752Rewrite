@@ -20,14 +20,12 @@ public class ShootingCommand extends CommandBase {
 
   @Override
   public void execute() {
-    shooterSubsystem.setShooterSpeed(1.0);
+    shooterSubsystem.setShooterSpeed(1000);
     transferSubsystem.setTransfer(1.0);
   }
 
   @Override
   public void end(boolean interrupted) {
-    shooterSubsystem.setShooterSpeed(0.0);
-    transferSubsystem.stopTransfer();
   }
 
   @Override
